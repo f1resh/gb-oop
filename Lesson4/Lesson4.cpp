@@ -27,6 +27,7 @@ size_t GetNumberOfUnique(const vector<int>& vec) {
         if (array[i] != array[i + 1]) counter++;
     }
 
+    delete array;
     return counter;
 }
 
