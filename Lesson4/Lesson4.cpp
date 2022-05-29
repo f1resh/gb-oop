@@ -5,18 +5,29 @@
 #include <iomanip>
 #include <array>
 #include "ArrayInt.h"
+#include "MySort.h"
 using namespace std;
 
 size_t GetNumberOfUnique(const vector<int>& vec) {
-    vector<int> uniqVec;
-    for (const auto elem : vec) {
-        bool isUnique = true;
-        for (auto uniqElem : uniqVec) {
-            if (elem == uniqElem) isUnique = false;
-        }
-        if (isUnique) uniqVec.push_back(elem);
+    if (vec.size() <= 1) return vec.size();
+    int length = vec.size();
+
+    int* array = new int[length]();
+    for (size_t i = 0; i < length; i++)
+    {
+        array[i] = vec[i];
     }
-    return uniqVec.size();
+
+
+    mySort::advancedQSort(array, 0, length-1);
+    int counter = 1;
+
+    for (size_t i = 0; i < length -1; i++)
+    {
+        if (array[i] != array[i + 1]) counter++;
+    }
+
+    return counter;
 }
 
 size_t GetNumberOfUnique_Set(const vector<int>& vec) {
@@ -56,10 +67,10 @@ int main()
     //Task 2
     cout << "==================================================\nTask 2" << endl;
     srand(time(NULL));
-    vector<int> Vector(10000);
+    vector<int> Vector(1000000);
     cout << "Vector of size " <<Vector.size() << ": " << endl;
     for (auto &elem : Vector) {
-        elem = rand() % 1000;
+        elem = rand() % 100000;
         //cout << elem << " ";
     }
     cout << endl;
