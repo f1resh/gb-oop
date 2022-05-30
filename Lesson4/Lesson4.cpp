@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <unordered_set>
 #include <random>
 #include <iomanip>
 #include <array>
@@ -33,6 +34,11 @@ size_t GetNumberOfUnique(const vector<int>& vec) {
 
 size_t GetNumberOfUnique_Set(const vector<int>& vec) {
     set<int> uniqSet(vec.begin(), vec.end());
+    return uniqSet.size();
+}
+
+size_t GetNumberOfUnique_USet(const vector<int>& vec) {
+    unordered_set<int> uniqSet(vec.begin(), vec.end());
     return uniqSet.size();
 }
 
@@ -91,6 +97,13 @@ int main()
     end = clock();
     time_taken = double(end - start) / double(CLOCKS_PER_SEC);
     cout << "Time of execution : " << fixed << time_taken << setprecision(5) <<  endl;
+
+    start = clock();
+    ios_base::sync_with_stdio(false);
+    cout << "Unordered Set. Number of unique values is : " << GetNumberOfUnique_USet(Vector) << endl;
+    end = clock();
+    time_taken = double(end - start) / double(CLOCKS_PER_SEC);
+    cout << "Time of execution : " << fixed << time_taken << setprecision(5) << endl;
 
 
 
