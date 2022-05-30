@@ -28,16 +28,34 @@ size_t GetNumberOfUnique(const vector<int>& vec) {
         if (array[i] != array[i + 1]) counter++;
     }
 
-    delete array;
+    delete[] array;
+    return counter;
+}
+
+size_t GetNumberOfUnique_Vector(const vector<int>& vec) {
+    if (vec.size() <= 1) return vec.size();
+    int length = vec.size();
+
+    vector<int> v(vec);
+
+    sort(v.begin(),v.end());
+    int counter = 1;
+
+    for (size_t i = 0; i < length -1; i++)
+    {
+        if (v[i] != v[i + 1]) counter++;
+    }
     return counter;
 }
 
 size_t GetNumberOfUnique_Set(const vector<int>& vec) {
+    if (vec.size() <= 1) return vec.size();
     set<int> uniqSet(vec.begin(), vec.end());
     return uniqSet.size();
 }
 
 size_t GetNumberOfUnique_USet(const vector<int>& vec) {
+    if (vec.size() <= 1) return vec.size();
     unordered_set<int> uniqSet(vec.begin(), vec.end());
     return uniqSet.size();
 }
@@ -92,14 +110,18 @@ int main()
     cout << "Time of execution : " << fixed << time_taken << setprecision(5) << endl;
 
     start = clock();
-    ios_base::sync_with_stdio(false);
+    cout << "Vector. Number of unique values is : " << GetNumberOfUnique_Vector(Vector) << endl;
+    end = clock();
+    time_taken = double(end - start) / double(CLOCKS_PER_SEC);
+    cout << "Time of execution : " << fixed << time_taken << setprecision(5) <<  endl;
+
+    start = clock();
     cout << "Set. Number of unique values is : " << GetNumberOfUnique_Set(Vector) << endl;
     end = clock();
     time_taken = double(end - start) / double(CLOCKS_PER_SEC);
     cout << "Time of execution : " << fixed << time_taken << setprecision(5) <<  endl;
 
     start = clock();
-    ios_base::sync_with_stdio(false);
     cout << "Unordered Set. Number of unique values is : " << GetNumberOfUnique_USet(Vector) << endl;
     end = clock();
     time_taken = double(end - start) / double(CLOCKS_PER_SEC);
