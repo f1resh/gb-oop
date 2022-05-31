@@ -34,7 +34,8 @@ public:
     void Flip(){
         face = !face;
     };
-    int GetValue(){
+    int GetValue() const {
+        if (!face) return 0;
         return (int)rank;
     }
     friend class Hand;
