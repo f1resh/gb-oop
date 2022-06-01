@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Card.h"
+#define MAX_POINTS 21
 using namespace std;
 
 class Hand {
@@ -45,7 +46,7 @@ int Hand::GetTotal() const {
 		if (card->rank == Rank::Ace) aceNumber++;
 	}
 
-	while (total > 21 && aceNumber > 0) {
+	while (total > MAX_POINTS && aceNumber > 0) {
 		total -= 10;
 		--aceNumber;
 	}
