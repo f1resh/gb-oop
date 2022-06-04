@@ -5,7 +5,7 @@
 using namespace std;
 
 class Hand {
-private:
+protected:
 	vector<Card*> mCards;
 public:
 	Hand();
@@ -17,7 +17,7 @@ public:
 	void Clear() {
 		for (auto card : mCards) {
 			delete card;
-			card = 0;
+			card = NULL;
 		}
 		mCards.clear();
 	};
@@ -50,7 +50,5 @@ int Hand::GetTotal() const {
 		total -= 10;
 		--aceNumber;
 	}
-
 	return total;
-
 }
