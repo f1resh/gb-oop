@@ -33,7 +33,7 @@ private:
     Card() = default;
     friend std::ostream& operator<<(std::ostream& out, const Card&);
 public:
-    Card(Suit _suit, Rank _rank, bool _face = false) : suit(_suit), rank(_rank), face(_face) {};
+    Card(Suit _suit, Rank _rank, bool _face = true) : suit(_suit), rank(_rank), face(_face) {};
     void Flip(){
         face = !face;
     };

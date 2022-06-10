@@ -3,46 +3,53 @@
 #include "Card.h"
 #include "Hand.h"
 #include "Players.h"
+#include "Deck.h"
+#include "Game.h"
 using namespace std;
 
+size_t getNumberOfPlayers() {
+	size_t n = 0;
+	while (n < 1 || n > 7) {
+		std::cout << "Please, enter number of players (1-7): ";
+		if (cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(32767, '\n');
+			std::cout << std::endl << "Error! You entered not integer!" << std::endl;
+		}
+		std::cin >> n;
+	}
+	return n;
+}
+
+std::string getPlayerName(const size_t N) {
+	std::string name;
+	std::cout << "Please enter the name of the " << N << " player: ";
+	std::cin >> name;
+	return name;
+}
+
+bool continueGame() {
+	cout << "One more play? (Y / N) : ";
+	char response;
+	cin >> response;
+	return (response == 'y' || response == 'Y');
+}
 int main()
 {
-	Card *first = new Card(Suit::Clubs, Rank::Ace);
-	Card *second = new Card(Suit::Spades, Rank::Queen);
-	Card *third = new Card(Suit::Hearts, Rank::King, true);
-	Card *fourth = new Card(Suit::Diamonds, Rank::Seven);
-	first->Flip();
-	second->Flip();
-	fourth->Flip();
-	cout << "First card is " << *first << endl;
-	cout << "Second card is " << *second << " points :" << second->GetValue() << endl;
-	cout << "Third card is " << *third << endl;
-	cout << "Fourth card is " << *fourth << endl;
+	size_t playerNumber = getNumberOfPlayers();
+	vector<std::string> players(playerNumber);
+	for (size_t i = 0; i < playerNumber; ++i) {
+		players[i] = getPlayerName(i+1);
+	}
+	
+	bool gameContinue = true;
+	while (gameContinue) {
+		Game* game = new Game(players);
+		game->play();
+		delete game;
+		gameContinue = continueGame();
+	}
 
-	Hand myHand;
-	myHand.Add(first);
-	myHand.Add(second);
-	myHand.Add(third);
-	myHand.Add(fourth);
-	cout << "Total points in Hand = " << myHand.GetTotal() << endl;
-
-	myHand.DropHand();
-	cout << "Dropping of hand. First card still exists. Value = " << first->GetValue() << endl;
-	cout << "Total points in Hand = " << myHand.GetTotal() << endl;
-
-	myHand.Add(first);
-	//myHand.Clear();
-	cout << "Clearing of hand. First card does not exist. Value = " << first->GetValue() << endl;
-	cout << "Total points in Hand = " << myHand.GetTotal() << endl;
-
-	Player *player1 = new Player("Pavel");
-	House *Dealer = new House();
-
-	player1->Add(fourth);
-	player1->Add(third);
-	//player1->Add(second);
-	player1->Add(first);
-	cout << *player1;
 
 
 	return 0;
